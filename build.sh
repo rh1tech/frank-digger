@@ -42,7 +42,7 @@ CMAKE_ARGS="-DPICO_BOARD=pico2"
 CMAKE_ARGS="$CMAKE_ARGS -DBOARD_VARIANT=$BOARD"
 CMAKE_ARGS="$CMAKE_ARGS -DCPU_SPEED=$CPU"
 
-echo "Building murmdigger:"
+echo "Building frank-digger:"
 echo "  Board: $BOARD"
 echo "  CPU: $CPU MHz"
 echo ""

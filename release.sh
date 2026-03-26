@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# release.sh - Build all release variants of murmdigger
+# release.sh - Build all release variants of frank-digger
 #
 # Creates UF2 files for each board variant (M1, M2) at 252 MHz.
 # All builds include USB HID support (keyboard via USB).
 # PS/2 keyboard is also supported simultaneously.
 #
-# Output format: murmdigger_mX_A_BB.uf2
+# Output format: frank-digger_mX_A_BB.uf2
 #   X  = Board variant (1 or 2)
 #   A  = Major version
 #   BB = Minor version (zero-padded)
@@ -43,18 +43,23 @@ if [[ $NEXT_MINOR -ge 100 ]]; then
     NEXT_MINOR=0
 fi
 
-# Interactive version input
+# Version input: accept from command line ($1) or prompt interactively
 echo ""
 echo -e "${CYAN}┌─────────────────────────────────────────────────────────────────┐${NC}"
-echo -e "${CYAN}│                   murmdigger Release Builder                    │${NC}"
+echo -e "${CYAN}│                  frank-digger Release Builder                    │${NC}"
 echo -e "${CYAN}└─────────────────────────────────────────────────────────────────┘${NC}"
 echo ""
 echo -e "Last version: ${YELLOW}${LAST_MAJOR}.$(printf '%02d' $LAST_MINOR)${NC}"
 echo ""
 
 DEFAULT_VERSION="${NEXT_MAJOR}.$(printf '%02d' $NEXT_MINOR)"
-read -p "Enter version [default: $DEFAULT_VERSION]: " INPUT_VERSION
-INPUT_VERSION=${INPUT_VERSION:-$DEFAULT_VERSION}
+if [[ -n "$1" ]]; then
+    INPUT_VERSION="$1"
+    echo -e "Version from command line: ${GREEN}$INPUT_VERSION${NC}"
+else
+    read -p "Enter version [default: $DEFAULT_VERSION]: " INPUT_VERSION
+    INPUT_VERSION=${INPUT_VERSION:-$DEFAULT_VERSION}
+fi
 
 # Parse version (handle both "1.00" and "1 00" formats)
 if [[ "$INPUT_VERSION" == *"."* ]]; then
@@ -116,7 +121,7 @@ for config in "${CONFIGS[@]}"; do
     fi
 
     # Output filename
-    OUTPUT_NAME="murmdigger_m${BOARD_NUM}_${VERSION}.uf2"
+    OUTPUT_NAME="frank-digger_m${BOARD_NUM}_${VERSION}.uf2"
 
     echo ""
     echo -e "${CYAN}[$BUILD_COUNT/$TOTAL_BUILDS] Building: $OUTPUT_NAME${NC}"
@@ -133,8 +138,8 @@ for config in "${CONFIGS[@]}"; do
     # Build
     if make -j8 > /dev/null 2>&1; then
         # Copy UF2 to release directory
-        if [[ -f "murmdigger.uf2" ]]; then
-            cp "murmdigger.uf2" "$RELEASE_DIR/$OUTPUT_NAME"
+        if [[ -f "frank-digger.uf2" ]]; then
+            cp "frank-digger.uf2" "$RELEASE_DIR/$OUTPUT_NAME"
             echo -e "  ${GREEN}✓ Success${NC} → release/$OUTPUT_NAME"
         else
             echo -e "  ${RED}✗ UF2 not found${NC}"
@@ -155,6 +160,6 @@ echo -e "${GREEN}Release build complete!${NC}"
 echo ""
 echo "Release files in: $RELEASE_DIR/"
 echo ""
-ls -la "$RELEASE_DIR"/murmdigger_*_${VERSION}.uf2 2>/dev/null | awk '{print "  " $9 " (" $5 " bytes)"}'
+ls -la "$RELEASE_DIR"/frank-digger_*_${VERSION}.uf2 2>/dev/null | awk '{print "  " $9 " (" $5 " bytes)"}'
 echo ""
 echo -e "Version: ${CYAN}${MAJOR}.$(printf '%02d' $MINOR)${NC}"

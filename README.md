@@ -1,4 +1,4 @@
-# MurmDigger
+# FRANK Digger
 
 Digger Remastered for RP2350 (Raspberry Pi Pico 2) with HDMI display, PS/2 or USB keyboard, and I2S audio.
 
@@ -14,7 +14,7 @@ Digger Remastered for RP2350 (Raspberry Pi Pico 2) with HDMI display, PS/2 or US
 
 In 1998, Andrew Jenner reverse-engineered the original x86 binary and created [Digger Remastered](http://www.digger.org) — a portable C reimplementation that preserved the original gameplay. Maksym Sobolyev ([sobomax](https://github.com/sobomax/digger)) later extended the project with SDL support, Linux compatibility, and various improvements.
 
-MurmDigger is a bare-metal port of Digger Remastered to the RP2350 microcontroller, using CGA 4-color graphics mode for a minimal flash footprint (~347 KB UF2). It outputs video over HDMI via PIO, reads input from a PS/2 or USB keyboard, and plays audio through an I2S DAC — all without an operating system.
+FrankDigger is a bare-metal port of Digger Remastered to the RP2350 microcontroller, using CGA 4-color graphics mode for a minimal flash footprint (~347 KB UF2). It outputs video over HDMI via PIO, reads input from a PS/2 or USB keyboard, and plays audio through an I2S DAC — all without an operating system.
 
 ## Note on Title Screen
 
@@ -105,8 +105,8 @@ Both PS/2 and USB keyboards are supported simultaneously in release builds.
 
 ```bash
 # Clone the repository
-git clone https://github.com/rh1tech/murmdigger.git
-cd murmdigger
+git clone https://github.com/rh1tech/frank-digger.git
+cd frank-digger
 
 # Default build: M2 board, 252 MHz
 ./build.sh
@@ -132,7 +132,7 @@ Output files are placed in the `release/` directory.
 
 ```bash
 # With device in BOOTSEL mode:
-picotool load build/murmdigger.uf2
+picotool load build/frank-digger.uf2
 
 # Or with device running:
 ./flash.sh

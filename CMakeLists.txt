@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.13)
 
 include(pico_sdk_import.cmake)
 
-project(murmdigger C CXX ASM)
+project(frank-digger C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -63,13 +63,13 @@ set(RP2350_SOURCES
     drivers/HDMI.c
 )
 
-add_executable(murmdigger
+add_executable(frank-digger
     ${GAME_SOURCES}
     ${RP2350_SOURCES}
 )
 
 # Compile definitions
-target_compile_definitions(murmdigger PRIVATE
+target_compile_definitions(frank-digger PRIVATE
     _RP2350
     BOARD_${BOARD_VARIANT}
     CPU_CLOCK_MHZ=${CPU_SPEED}
@@ -82,18 +82,18 @@ add_subdirectory(drivers/ps2kbd)
 add_subdirectory(drivers/usbhid)
 
 # Generate PIO header for I2S audio
-pico_generate_pio_header(murmdigger
+pico_generate_pio_header(frank-digger
     ${CMAKE_CURRENT_LIST_DIR}/drivers/audio_i2s.pio
 )
 
 # Include directories
-target_include_directories(murmdigger PRIVATE
+target_include_directories(frank-digger PRIVATE
     src
     drivers
 )
 
 # Link libraries
-target_link_libraries(murmdigger
+target_link_libraries(frank-digger
     pico_stdlib
     pico_multicore
     hardware_pio
@@ -110,17 +110,17 @@ target_link_libraries(murmdigger
 )
 
 # Use custom linker script
-pico_set_linker_script(murmdigger ${CMAKE_CURRENT_LIST_DIR}/memmap.ld)
+pico_set_linker_script(frank-digger ${CMAKE_CURRENT_LIST_DIR}/memmap.ld)
 
 # Generate UF2 and other output formats
-pico_add_extra_outputs(murmdigger)
+pico_add_extra_outputs(frank-digger)
 
 # USB HID enabled: native USB port → Host mode, debug → UART
 # USB HID disabled: native USB port → CDC serial, no UART
 if(USB_HID_ENABLED)
-    pico_enable_stdio_usb(murmdigger 0)
-    pico_enable_stdio_uart(murmdigger 1)
+    pico_enable_stdio_usb(frank-digger 0)
+    pico_enable_stdio_uart(frank-digger 1)
 else()
-    pico_enable_stdio_usb(murmdigger 1)
-    pico_enable_stdio_uart(murmdigger 0)
+    pico_enable_stdio_usb(frank-digger 1)
+    pico_enable_stdio_uart(frank-digger 0)
 endif()

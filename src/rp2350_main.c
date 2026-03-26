@@ -101,7 +101,7 @@ int main(void) {
 
     /* stdio (USB CDC or UART depending on USB_HID_ENABLED) */
     stdio_init_all();
-    printf("murmdigger: starting\n");
+    printf("frank-digger: starting\n");
 
     /* Initialize HDMI graphics (Core 0, defer IRQ to Core 1) */
     graphics_set_defer_irq_to_core1(true);
