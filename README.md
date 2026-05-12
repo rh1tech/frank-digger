@@ -1,5 +1,7 @@
 # FRANK Digger
 
+Official page: **[frank.rh1.tech](https://frank.rh1.tech/)** — hub for all FRANK boards and firmware.
+
 Digger Remastered for RP2350 (Raspberry Pi Pico 2) with HDMI display, PS/2 or USB keyboard, and I2S audio.
 
 ## Screenshots
